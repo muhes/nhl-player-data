@@ -1,5 +1,5 @@
 const fs = require('fs');
-const xml2js = require('xml2js');
+//csvconst xml2js = require('xml2js');
 const csv = require('csv-parser');
 var count = 0
 var playerData = {};
@@ -38,34 +38,6 @@ async function readCSV(){
         let player = {goals:goals, points:points, assists: assists, age:age, gp:gp, atoi:atoi, name: playerName,
         season:thisSeason}
         addPlayerData(player)
-        /*
-      var season = {}
-      season = {points:points, goals:goals, assists: assists, age: age, atoi: atoi,gp: gp }
-      //console.log(([playerData][playerName]))
-        if ((playerData[playerName]) === undefined ){
-        playerData[playerName] ={
-          name:playerName,[row['Season']] :season, career_high: points, career_high_goals: goals, career_points:points,
-          career_goals: goals
-        };
-        //playerData[playerName][season] = {[row['Season']] : season}
-        
-        } 
-        else {
-          //console.log(playerData[playerName])
-          if (points > playerData[playerName]['career_high']){ playerData[playerName]['career_high'] = points}
-          if (goals > playerData[playerName]['career_high_goals']){ playerData[playerName]['career_high_goals'] = goals}
-          if (!Number.isNaN(points)){playerData[playerName]['career_points'] += points}
-          if (!Number.isNaN(goals)){playerData[playerName]['career_goals'] += goals}
-          let S = {[row['Season']]: {
-            points:points, goals:goals, assists: assists, age: age, atoi: atoi, gp: gp
-          }}
-          const ret = Object.assign(playerData[playerName], S)
-        //[playerData][playerData]['new'] = {points:row['PTS'], goals:row['G'], assists: row['A'] }
-        }
-     // console.log(playerData[playerName])
-      count ++
-      */
-      //console.log(count)
       }
       
     })
