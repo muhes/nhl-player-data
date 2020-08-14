@@ -4,8 +4,9 @@ const csv = require('csv-parser');
 var count = 0
 var playerData = {};
 async function readCSV(){
- fs.createReadStream(fileName)
-    .pipe(csv())
+  var done = false
+ const file = fs.createReadStream(fileName)
+    const csvFile = file.pipe(csv())
     .on('data', (row) => {
         var playerName  = row['Player']
         var pid = row[""]
@@ -37,19 +38,39 @@ async function readCSV(){
       if (count < 10000 && playerName !== 'Sebastian Aho') {
         let player = {goals:goals, points:points, assists: assists, age:age, gp:gp, atoi:atoi, name: playerName,
         season:thisSeason}
-        addPlayerData(player)
+        addPlayerData(player, playerData)
       }
       
     })
+    var end = new Promise(function(resolve, reject) {
+      csvFile.on('end',resolve);
+      file.on('error', reject);
+});
+    /*
     .on('end', () => {
-      console.log('CSV file successfully processed');
-      console.log(playerData['Nazem Kadri'])
-      console.log(playerData['Nazem Kadri']['2010']['points'], typeof(playerData['Nazem Kadri']['2010']['points']))
+        console.log('CSV file successfully processed');
+        //console.log(playerData['Nazem Kadri'])
+        //console.log(playerData['Nazem Kadri']['2010']['points'], typeof(playerData['Nazem Kadri']['2010']['points']))
+        const jsonString = JSON.stringify(playerData)
+        var done = true
+        fs.writeFile('player.json', jsonString, err => {
+      if (err) {
+          console.log('Error writing file', err)
+      } else {
+          console.log('Successfully wrote file')
+      }
+  })
+        
+      })
+      */
+    
+     //(async function() {
+      let sha1sum = await end;
       return playerData
-    });
+  //}());
 }
 
-var addPlayerData = (player) => {
+var addPlayerData = (player, playerData) => {
   let season = {}
   season = {
     points:player.points, goals:player.goals, assists: player.assists, age: player.age, atoi: player.atoi,gp: player.gp 
@@ -80,8 +101,15 @@ var addPlayerData = (player) => {
 
 fileName ='skater_stats.csv'
 async function main() {
-const pd = await readCSV(fileName)
-console.log(pd)
+const s = await readCSV(fileName)
+/*
+.then((pd) => {
+  console.log(pd)
+  console.log(pd['Nazem Kadri'])
+})
+.catch(error => console.log(error))
+}
+*/
 console.log(playerData['Nazem Kadri'])
 }
   
