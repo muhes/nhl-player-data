@@ -100,7 +100,7 @@ var addPlayerData = (player, playerData) => {
 
 
 fileName ='skater_stats.csv'
-async function main() {
+module.exports = async function main() {
 const s = await readCSV(fileName)
 /*
 .then((pd) => {
@@ -111,6 +111,6 @@ const s = await readCSV(fileName)
 }
 */
 console.log(playerData['Nazem Kadri'])
+return playerData
 }
   
-main()
