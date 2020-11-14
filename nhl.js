@@ -46,24 +46,7 @@ async function readCSV(){
       csvFile.on('end',resolve);
       file.on('error', reject);
 });
-    /*
-    .on('end', () => {
-        console.log('CSV file successfully processed');
-        //console.log(playerData['Nazem Kadri'])
-        //console.log(playerData['Nazem Kadri']['2010']['points'], typeof(playerData['Nazem Kadri']['2010']['points']))
-        const jsonString = JSON.stringify(playerData)
-        var done = true
-        fs.writeFile('player.json', jsonString, err => {
-      if (err) {
-          console.log('Error writing file', err)
-      } else {
-          console.log('Successfully wrote file')
-      }
-  })
-        
-      })
-      */
-    
+  
      //(async function() {
       let sha1sum = await end;
       return playerData
@@ -81,11 +64,9 @@ var addPlayerData = (player, playerData) => {
       name:player.name,[player['season']] :season, career_high: player.points, career_high_goals: player.goals
       , career_points:player.points, career_goals: player.goals
     };
-    //playerData[playerName][season] = {[row['Season']] : season}
     
     } 
     else {
-      //console.log(playerData[playerName])
       if (player.points > playerData[player.name]['career_high']){ playerData[player.name]['career_high'] = player.points}
       if (player.goals > playerData[player.name]['career_high_goals']){ playerData[player.name]['career_high_goals'] = player.goals}
       if (!Number.isNaN(player.points)){playerData[player.name]['career_points'] += player.points}
@@ -102,14 +83,7 @@ var addPlayerData = (player, playerData) => {
 fileName ='skater_stats.csv'
 module.exports = async function main() {
 const s = await readCSV(fileName)
-/*
-.then((pd) => {
-  console.log(pd)
-  console.log(pd['Nazem Kadri'])
-})
-.catch(error => console.log(error))
-}
-*/
+
 console.log(playerData['Nazem Kadri'])
 return playerData
 }
